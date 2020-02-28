@@ -6,6 +6,17 @@ class SingupModelForm(forms.ModelForm):
         model = Usuario
         fields = ["nombre", "email"]
  
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        base, proveedor = email.split("@")
+        if not "uhu." in proveedor:
+            raise forms.ValidationError("Utilice su correo institucional")
+        return email
+
+    def clean_nombre(self):
+        nombre = self.cleaned_data.get("nombre")
+        # validaciones
+        return nombre
 
 class SingupForm(forms.Form):
     nombre = forms.CharField(max_length=100)

@@ -25,7 +25,7 @@ $  django-admin startproject <nombre_proy>
 ```
 $ python manage.py runserver 0:8000
 ```
-Acceder al proyecto: http://ip-maquina:8080
+Acceder al proyecto: http://ip-maquina:8000
 
 ## Crear un usuario administrador
 
@@ -40,7 +40,7 @@ y crear un superusuario con
 ```
 $ python manage.py createsuperuser
 ```
-Acceder al administración:  http://ip-maquina:8080/admin
+Acceder al administración:  http://ip-maquina:8000/admin
 
 
 
@@ -73,6 +73,11 @@ class Usuario(models.Model):
     nombre = models.CharField(max_length=200, blank=True, null=True)
     email = models.EmailField()
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+    
+    def __str__(self):
+        return self.nombre + " (" + self.email + ")."
+    
+    
 ```
 
 ## Migraciones 
@@ -278,6 +283,30 @@ class AdminUsuario(admin.ModelAdmin):
 admin.site.register(Usuario, AdminUsuario)
 ```
 
+### Añadir validaciones al modelo del formulario
+
+Para ello, crearemos métodos en la clase del modelo del formulaio:
+
+```python
+# Añadir los métodos siguientes en este clase
+class SingupModelForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ["nombre", "email"]
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        base, proveedor = email.split("@")
+        if not "uhu." in proveedor:
+            raise forms.ValidationError("Utilice su correo institucional")
+        return email
+        
+    def clean_nombre(self):
+        nombre = self.cleaned_data.get("nombre")
+        # validaciones
+        return nombre
+
+```
 
 
 ... continuará ...
