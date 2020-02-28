@@ -245,12 +245,12 @@ En el fichero form.py añadir el siguiente código
 from django import forms
 from .models import Usuario
 
-<span style="color:red">
+# Añadir este código
 class SingupModelForm(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ["nombre", "email"]
-</span>
+# hasta aquí
 
 class SingupForm(forms.Form):
     nombre = forms.CharField(max_length=100)
