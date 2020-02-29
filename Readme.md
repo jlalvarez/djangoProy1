@@ -288,7 +288,7 @@ admin.site.register(Usuario, AdminUsuario)
 Para ello, crearemos métodos en la clase del modelo del formulaio:
 
 ```python
-# Añadir los métodos siguientes en este clase
+# Añadir los métodos siguientes en esta clase
 class SingupModelForm(forms.ModelForm):
     class Meta:
         model = Usuario
@@ -305,8 +305,60 @@ class SingupModelForm(forms.ModelForm):
         nombre = self.cleaned_data.get("nombre")
         # validaciones
         return nombre
+```
+
+## Archivos estáticos
+
+En settings debe existir en la sección INSTALLED_APPS la siguiente entrada:
+
+```    
+'django.contrib.staticfiles',
+```
+
+y la sección: STATIC_URL = '/static/'
+
+Es necesario hacer una distinción de los ficheros estáticos en desarrollo y en producción.
+
+Para ello, añadir para simular los ficheros estáticos en producción
+y definir STATIC_ROOT con la ruta en la que se alojaran los ficheros.
+
+```  
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static_devel", "static"),
+]
+
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_prod", "static")
 
 ```
 
+Ahora crear los directorios 
+- static_prod y dentro static
+- static_devel y dentro static
+
+STATIC_ROOT será la ruta de producción a la que serán enviados los ficheros
+estáticos que se alojen en STATICFILES_DIRS
+
+Ahora, en el fichero urls.py definir las rutas a los ficheros estáticos:
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+Para trasladar los ficheros desde el entorno de desarrollo al de producción 
+```
+$ python manage.py collectstatic
+```
+
+
+Para acceder a un fichero estático utiliza:
+
+```
+{% load static %}
+
+
+<img src="{% static 'img/example.jpg' %}" alt="My image">
+
+```
 
 ... continuará ...
