@@ -328,7 +328,6 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_prod", "static")
-
 ```
 
 Ahora crear los directorios 
@@ -338,12 +337,13 @@ Ahora crear los directorios
 STATIC_ROOT será la ruta de producción a la que serán enviados los ficheros
 estáticos que se alojen en STATICFILES_DIRS
 
-Ahora, en el fichero urls.py definir las rutas a los ficheros estáticos:
+Ahora, en el fichero urls.py definir las rutas a los ficheros estáticos, con:
 
+```python
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+```
 
 Para trasladar los ficheros desde el entorno de desarrollo al de producción 
 ```
