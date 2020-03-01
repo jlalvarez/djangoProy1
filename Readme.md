@@ -406,6 +406,70 @@ En las vistas, incluir al principio la herencia de la plantilla principal:
 
 ```
 
+### Incluir un fichero en otro
 
+En la plantilla base, podemos incluir el contenido de otros ficheros con include:
+
+```html
+...
+  <body>
+    
+    <div class="container">
+        
+        {% include "navbar.html" %}
+
+    </div>
+...
+```
+
+Esto incluiría el contenido del fichero navbar.html, en la plantilla base.
+
+### Añadir bloques (block) en la plantilla base
+
+En una plantilla, se pueden crear bloques que se sustituirán con el contenido 
+definido en el fichero que herada de esa plantilla.
+
+```html
+...
+  <body>
+    
+    <div class="container">
+        
+        {% include "navbar.html" %}
+        
+        {% block jumbotron %}
+        {% endblock %}
+         
+        
+        {% block content %}
+        {% endblock %}
+
+    </div>
+...
+```
+Ahora, en el fichero que hereda la plantilla, se define el contenido que se incluirá
+en el bloque de la plantilla base:
+
+```html
+{% extends "base.html" %}
+
+{% block jumbotron %}
+<!-- Aquí el contenido para el bloque jumbotron -->
+<div class="jumbotron">
+  <h1 class="display-4">Hello, world!</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<!-- Aquí el contenido para el bloque content -->
+{% endblock %}
+
+...
+```
 
 ... continuará ...
