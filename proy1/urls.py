@@ -24,7 +24,7 @@ from app1 import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('', views.vista1, name='vista1')
+    path('vista1/', views.vista1, name='vista1')
 ]
 
 if settings.DEBUG:

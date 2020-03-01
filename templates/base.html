@@ -11,10 +11,28 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
     
-    {% load static %}
-    <img src="{% static 'img/example.jpg' %}" alt="My image">
+    <div class="container">
+        
+        {% include "navbar.html" %}
+        
+        
+        {% block jumbotron %}
+        
+        {% endblock %}
+         
+        
+        {% block content %}
+        
+        {% endblock %}
+        
+        <!-- Esto mejor al inicio del documento -->
+        {% load static %}
+        
+        <img src="{% static 'img/example.jpg' %}" alt="My image" width="100%" />
+
+
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
