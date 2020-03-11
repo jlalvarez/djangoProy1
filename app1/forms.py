@@ -22,3 +22,10 @@ class SingupForm(forms.Form):
     nombre = forms.CharField(max_length=100)
     email = forms.CharField(max_length=100)
     
+    OCCUPATION_CHOICES = [
+        ('1', 'CathedralProfessor'),
+        ('2', 'ResearchProfessor'),
+        ('3', 'InstitutionalDirective'),
+    ]
+    Opciones = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=OCCUPATION_CHOICES)
+    

@@ -4,7 +4,7 @@ from .forms import SingupForm, SingupModelForm
 
 # Create your views here.
 
-def vista1(request):
+def registrar(request):
     titulo = "App1"
     if request.user.is_authenticated:
         titulo = "Bienvenido %s" %(request.user)
@@ -27,7 +27,23 @@ def vista1(request):
             "titulo": "Gracias %s" %(instance.nombre),
         }
 
-    return render(request, "vista1.html", contexto)    
+    return render(request, "mostrarForm.html", contexto)    
+
+def login(request):
+    f = SingupForm(request.POST or None)
+    return render(request, "login.html", {"f":f})   
+
+def checkLogin(request):
+    f = SingupForm(request.POST or None)
+    #print(dir(f))
+    print(f.data)
+    print(f.data.getlist("Opciones"))
+    contexto = {
+        "mensaje" : "Recibido correctamente",
+        "titulo" : "Ver datos",
+    }
+    return render(request, "verForm.html", contexto)  
+
 
 def home(request):
     contexto = {

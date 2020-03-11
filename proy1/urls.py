@@ -25,7 +25,9 @@ from .views import about
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('vista1/', views.vista1, name='vista1'),
+    path('alta/', views.registrar, name='alta'),
+    path('login/', views.login, name='login'),
+    path('checkLogin/', views.checkLogin, name='checkLogin'),
     path('about/', about, name='about')
 ]
 

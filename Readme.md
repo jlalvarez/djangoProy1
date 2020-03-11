@@ -162,6 +162,7 @@ En el fichero views.py incluir:
 
 ```python
 def vista1(request):
+    contexto = {} # Incluir datos para pasar a la vista
     return render(request, "vista1.html", contexto)
 ```
 
@@ -205,17 +206,21 @@ En la ruta será necesario crear las vistas
 
 ## Asociar una URL a una acción
 
-En el fichero nombre_proy/urls.py añadir:
+En el fichero nombre_proy/urls.py añadir a urlpatterns una línea path:
 
 ```python
 from app1 import views
 
 urlpatterns = [
     ...
-    path('', views.vista1, name='home')
+    path('url/', views.vista1, name='nombre'),
+    ...
 ]
 ```
 
+En este caso, la petición http://host:8000/url ejecutaría el método vista1 del
+fichero views.py.
+Se podría utilizar la ruta creada con {% url 'nombre' %}
 
 
 ## Crear Formularios
@@ -226,37 +231,100 @@ En la app crear un fichero form.py y añadir:
 ```python
 from django import forms
 
-class SingupForm(forms.Form):
+class miForm(forms.Form):
     nombre = forms.CharField(max_length=100)
     email = forms.CharField(max_length=100)
+    
+    OCCUPATION_CHOICES = [
+        ('1', 'CathedralProfessor'),
+        ('2', 'ResearchProfessor'),
+        ('3', 'InstitutionalDirective'),
+    ]
+    Opciones = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=OCCUPATION_CHOICES)
 ```
 
 
-### Añadir a una vista
+### Añadir una vista para mostrar el formulario
 
 En views.py, importar el formulario e incluir en la acción correspodiente:
 
 ```python
-from .forms import SingupForm
+from .forms import miForm
 
-def inicio(request):
-    form = SingupForm()
+def nombre(request):
+    form = miForm()
     contexto = {
         "form": form,
     }
     return render(request, "vista.html", contexto)
 ```
 
-En la plantilla renderizar con {{ }}, por ejemplo el vista.html
+En una vista, se renderiza el formulario con {{ }}, por ejemplo, vista.html quedaría:
 
 ```html
 <h1>Alta usuario</h1>
 
-<form method="POST" action="">
+<form method="POST" action="{% url 'verForm' %}">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Registrar" />
 </form>
+```
+
+## Crear una vista para recbir los datos del formulario
+
+En el fichero nombre_proy/urls.py, añadir una nueva ruta para la nueva vista:
+
+```python
+...
+
+urlpatterns = [
+    ...
+    path('verForm', views.vista, name='verForm')
+    ...
+]
+...
+```
+
+En el fichero views.py, incluir una nueva acción con:
+
+```python
+def vista(request):
+    f = miForm(request.POST or None)
+    # Procesar el formulario
+    #print(dir(f))
+    #print(f.data)
+    #print(f.data.getlist('Opciones'))
+    # componer contexto deseado
+    contexto {
+        'mensaje' : "Formulario recibido correctamente"
+    }
+    
+    return render(request, "vista.html", contexto)  
+```
+
+La nueva vista (vista.html) quedaría:
+
+```html
+{% extends "base.html" %}
+
+
+{% block title %}Ver Datos{% endblock %}
+
+{% block content %}
+
+<h1>{{ titulo }}</h1>
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ mensaje }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+</div>
+
+
+
+{% endblock %}
 ```
 
 
