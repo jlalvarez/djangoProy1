@@ -13,9 +13,16 @@ Instalar pip
 ```
 python -m pip install django
 ```
-Podríamos crear un entorno de desarrollo con VirtualEnv
+```
+WARNING: The script sqlformat.exe is installed in 'C:\Users\alvarez\AppData\Local\Packages\PythonSoftwareFoundation.Pyt  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location. 
+```
 
-Ver paquetes instalados con $ pip freeze
+- Podríamos crear un entorno de desarrollo con VirtualEnv
+
+- Ver paquetes instalados con 
+```
+$ pip freeze
+```
 
 ## Crear proyecto Django
 
