@@ -20,11 +20,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from app1 import views
+from .views import about
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('vista1/', views.vista1, name='vista1')
+    path('vista1/', views.vista1, name='vista1'),
+    path('about/', about, name='about')
 ]
 
 if settings.DEBUG:

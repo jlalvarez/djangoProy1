@@ -431,6 +431,8 @@ definido en el fichero que herada de esa plantilla.
 
 ```html
 ...
+    <title>Proyecto1 | {% block title %}{% endblock %}</title>
+...
   <body>
     
     <div class="container">
@@ -453,6 +455,8 @@ en el bloque de la plantilla base:
 ```html
 {% extends "base.html" %}
 
+{% block title %}Home{% endblock %}
+
 {% block jumbotron %}
 <!-- Aquí el contenido para el bloque jumbotron -->
 <div class="jumbotron">
@@ -471,5 +475,18 @@ en el bloque de la plantilla base:
 
 ...
 ```
+
+
+## Crispy Forms
+
+De momento, ver:
+- https://django-crispy-forms.readthedocs.io/en/latest/
+- https://simpleisbetterthancomplex.com/tutorial/2018/11/28/advanced-form-rendering-with-django-crispy-forms.html
+
+
+## Enlaces
+
+
+
 
 ... continuará ...
