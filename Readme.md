@@ -9,11 +9,29 @@ Instalar Python
 Instalar pip 
 
 //TO DO
-Instalar Django
+- Instalar Django
+```
+python -m pip install django
+```
+```
+WARNING: The script sqlformat.exe is installed in 'C:\Users\alvarez\AppData\Local\Packages\PythonSoftwareFoundation.Pyt  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location. 
+```
 
-Podríamos crear un entorno de desarrollo con VirtualEnv
+- Podríamos crear un entorno virtual
 
-Ver paquetes instalados con $ pip freeze
+```
+# macOS/Linux
+sudo apt-get install python3-venv    # If needed
+python3 -m venv env
+
+# Windows
+python -m venv env
+```
+
+- Ver paquetes instalados con 
+```
+$ pip freeze
+```
 
 ## Crear proyecto Django
 
@@ -476,7 +494,6 @@ en el bloque de la plantilla base:
 ...
 ```
 
-
 ## Crispy Forms
 
 De momento, ver:
@@ -490,3 +507,4 @@ De momento, ver:
 
 
 ... continuará ...
+
