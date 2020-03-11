@@ -9,8 +9,10 @@ Instalar Python
 Instalar pip 
 
 //TO DO
-Instalar Django
-
+- Instalar Django
+```
+python -m pip install django
+```
 Podríamos crear un entorno de desarrollo con VirtualEnv
 
 Ver paquetes instalados con $ pip freeze
